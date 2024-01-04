@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "
-(If you make a mistake press ^C and rerun $0)
+(If you make a mistake press ^C and rerun ./deploy.bash)
 
 We'll create an upstream repository at
     https://github.com/<organization>/<repository>
