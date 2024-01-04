@@ -3,23 +3,29 @@
 echo "
 (If you make a mistake press ^C and rerun ./deploy.bash)
 
-We'll create an upstream repository at
-    https://github.com/<organization>/<repository>
+Let's create a repository on GitHub that your students
+will use as an upstream repository.
+
 "
-read -p "Enter <organization>: " -r ORG_NAME
-read -p "Enter <repository>: " -r REPO_NAME
+read -p "What should the new repository be named? " -r REPO_NAME
+read -p "In what organization or namespace on GitHub should we create it? " -r ORG_NAME
 
 REPO_URL="https://github.com/$ORG_NAME/$REPO_NAME"
 
 echo "
+
+To create the repository, we need a personal access token
+with appropriate permissions.
+
 Navigate to https://github.com/settings/tokens/new
+
 Generate a token that expires in 7 days with the following scopes
     repo (all)
     workflow
     read:org (under admin:org)
 "
 unset GH_TOKEN
-prompt="Enter token: "
+prompt="Please paste the token you generated: "
 while IFS= read -p "$prompt" -r -s -n 1 char
 do
     if [[ $char == $'\0' ]]
