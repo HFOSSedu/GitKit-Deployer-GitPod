@@ -1,3 +1,3 @@
 FROM gitpod/workspace-base
 
-RUN echo "source ./startup.bash" >> /home/gitpod/.bashrc
+RUN echo "source ./deploy.bash" >> /home/gitpod/.bashrc
