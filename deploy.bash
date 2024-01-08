@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+# GITKIT_DOCKER_TAG allows caller to supply the tag for the
+# GitKit Deployer Docker container. This is used when testing
+# to supply the tag for the branch being tested, or if one
+# wants to pin the version number of the deployer.
+#
+# For instructions on how to pass variables through a GitPod
+# URL, see: https://www.gitpod.io/docs/configure/projects/environment-variables#providing-one-time-environment-variables-via-url
+#
+# Here is an example of passing the default value (latest).
+# https://gitpod.io/?autostart=true#GITKIT_DOCKER_TAG=latest/https://github.com/hfossedu/gitkit-deployer-gitpod
+GITKIT_DOCKER_TAG="${GITKIT_DOCKER_TAG:=latest}"
+
 echo "
 (If you make a mistake press ^C and rerun ./deploy.bash)
 
@@ -44,7 +56,7 @@ export GH_TOKEN
 export REPO_NAME
 export ORG_NAME
 export REPO_URL
-docker run --rm -it -e GH_TOKEN -e REPO_NAME registry.gitlab.com/hfossedu/kits/gitkit:latest "$ORG_NAME"
+docker run --rm -it -e GH_TOKEN -e REPO_NAME "registry.gitlab.com/hfossedu/kits/gitkit:$GITKIT_DOCKER_TAG" "$ORG_NAME"
 
 echo "
 
