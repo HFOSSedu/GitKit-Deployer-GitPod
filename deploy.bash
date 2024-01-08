@@ -10,7 +10,11 @@
 #
 # Here is an example of passing the default value (latest).
 # https://gitpod.io/?autostart=true#GITKIT_DOCKER_TAG=latest/https://github.com/hfossedu/gitkit-deployer-gitpod
-GITKIT_DOCKER_TAG="${GITKIT_DOCKER_TAG:=latest}"
+if [ -n "$GITKIT_DOCKER_TAG" ] ; then
+    echo "GITKIT_DOCKER_TAG detected: ${GITKIT_DOCKER_TAG}"
+else
+    GITKIT_DOCKER_TAG="latest"
+fi
 
 echo "
 (If you make a mistake press ^C and rerun ./deploy.bash)
