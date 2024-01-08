@@ -19,9 +19,14 @@ Let's create a repository on GitHub that your students
 will use as an upstream repository.
 
 "
-read -p "What should the new repository be named? " -r REPO_NAME
-read -p "In what organization or namespace on GitHub should we create it? " -r ORG_NAME
 
+if [ -z "$REPO_NAME" ] ; then
+    read -p "What should the new repository be named? " -r REPO_NAME
+fi
+
+if [ -z "$ORG_NAME" ] ; then
+    read -p "In what organization or namespace on GitHub should we create it? " -r ORG_NAME
+fi
 REPO_URL="https://github.com/$ORG_NAME/$REPO_NAME"
 
 echo "
