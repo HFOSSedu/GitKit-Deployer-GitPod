@@ -73,6 +73,12 @@ Your new repository is ready. Give the URL below to your students.
 
     $REPO_URL
 
+As part of our NSF-funded project, we are gathering information on the use of GitKit.
+If you are currently integrating GitKit into a course you are instructing,
+we kindly request your participation in this brief survey:
+
+    https://drexel.qualtrics.com/jfe/form/SV_81y8BL0zy3fBw22
+
 You may stop this workspace using the following command.
 
     gp stop
