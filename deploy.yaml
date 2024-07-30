@@ -1,0 +1,80 @@
+
+run:
+
+  # GITKIT_DOCKER_TAG allows caller to supply the tag for the
+  # GitKit Deployer Docker container. This is used when testing
+  # to supply the tag for the branch being tested, or if one
+  # wants to pin the version number of the deployer.
+  #
+  # For instructions on how to pass variables through a GitPod
+  # URL, see: https://www.gitpod.io/docs/configure/projects/environment-variables#providing-one-time-environment-variables-via-url
+  #
+  # Here is an example of passing the default value (latest).
+  # https://gitpod.io/?autostart=true#GITKIT_DOCKER_TAG=latest/https://github.com/hfossedu/gitkit-deployer-gitpod
+
+  - |
+    if [ -n "$GITKIT_DOCKER_TAG" ]
+    then
+      echo "GITKIT_DOCKER_TAG detected: ${GITKIT_DOCKER_TAG}"
+    fi
+
+  - GITKIT_DOCKER_TAG:
+      if-empty:
+      value: latest
+
+  - REPO_NAME:
+      if-empty:
+      description: |+
+        Let's create a repository on GitHub that your students
+        will use as an upstream repository.
+
+      prompt: "What should the new repository be named? "
+
+  - ORG_NAME:
+      if-empty:
+      prompt: "In what organization or namespace on GitHub should we create it? "
+
+  - REPO_URL: "https://github.com/${ORG_NAME}/${REPO_NAME}"
+
+  - GH_TOKEN:
+      description: |+
+        To create the repository, we need a personal access token
+        with appropriate permissions.
+
+        Navigate to https://github.com/settings/tokens/new
+
+        Generate a token that expires in 7 days with the following scopes
+            repo (all)
+            workflow
+            read:org (under admin:org)
+
+      prompt: "Please paste the token you generated (input is not displayed): "
+      secret: True
+
+  - |
+    echo "
+
+      Creating ${REPO_URL} ...
+    "
+
+  -
+    image: registry.gitlab.com/hfossedu/kits/gitkit:${GITKIT_DOCKER_TAG}
+    environment:
+      GH_TOKEN:
+      REPO_NAME:
+    command:
+      - ${ORG_NAME}
+
+  - |
+    echo "
+    Your new repository is ready. Give the URL below to your students.
+
+        ${REPO_URL}
+
+    As part of our NSF-funded project, we are gathering information on the use of GitKit.
+    If you are currently integrating GitKit into a course you are instructing,
+    we kindly request your participation in this brief survey:
+
+        https://drexel.qualtrics.com/jfe/form/SV_81y8BL0zy3fBw22
+
+    "
